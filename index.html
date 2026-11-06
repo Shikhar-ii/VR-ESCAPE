@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#071116">
+    <title>Cyber Escape: The Last Signal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="game.js" defer></script>
+  </head>
+  <body>
+    <main id="game" class="game-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Cyber Escape home">
+          <span class="brand-mark" aria-hidden="true">C<span>:</span></span>
+          <span class="brand-name">CYBER<span>ESCAPE</span></span>
+        </a>
+        <div class="mission-label"><span class="live-dot"></span> INCIDENT 04 <span class="divider">/</span> THE LAST SIGNAL</div>
+        <div class="top-actions">
+          <button class="icon-button" id="sound-toggle" type="button" aria-label="Toggle ambient sound" title="Toggle ambient sound"><span aria-hidden="true">◖</span></button>
+          <button class="icon-button" id="pause-button" type="button" aria-label="Pause game" title="Pause game"><span aria-hidden="true">Ⅱ</span></button>
+        </div>
+      </header>
+
+      <section id="intro-screen" class="intro-screen" aria-labelledby="intro-title">
+        <div class="intro-image" role="img" aria-label="A dim, compromised cybersecurity research facility"></div>
+        <div class="intro-copy">
+          <p class="eyebrow"><span class="live-dot"></span> PRIORITY TRANSMISSION <span class="mono">// 02:14:08 UTC</span></p>
+          <h1 id="intro-title">The last<br><span>signal.</span></h1>
+          <p class="intro-description">An unknown operator has breached Helix Research. Three sealed zones stand between you and the recovery core. The facility is losing power. You have 20 minutes.</p>
+          <div class="briefing-line"><span class="briefing-icon" aria-hidden="true">⌁</span><span>Find the breach. Restore the signal. Get out.</span></div>
+          <button id="start-button" class="primary-button" type="button">Enter the facility <span aria-hidden="true">↗</span></button>
+          <p class="intro-foot mono">FIELD AGENT 07 <span>·</span> SOLO OPERATION <span>·</span> NO EXTERNAL COMMS</p>
+        </div>
+        <div class="intro-index mono"><span>HX—04</span><span>FACILITY<br>LOCKDOWN</span></div>
+      </section>
+
+      <section id="play-screen" class="play-screen" hidden>
+        <aside class="left-rail">
+          <div class="rail-section timer-section">
+            <span class="rail-label">TIME REMAINING</span>
+            <div class="timer" id="timer" aria-live="off">20:00</div>
+            <div class="timer-track"><span id="timer-progress"></span></div>
+          </div>
+          <div class="rail-section room-list-section">
+            <span class="rail-label">FACILITY MAP</span>
+            <nav id="room-nav" class="room-nav" aria-label="Facility rooms"></nav>
+          </div>
+          <div class="rail-bottom">
+            <span class="signal-icon" aria-hidden="true">⌁</span>
+            <span class="rail-label">SIGNAL</span>
+            <span class="signal-status">UNSTABLE</span>
+            <div class="signal-bars" aria-label="Weak signal"><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+        </aside>
+
+        <div class="main-column">
+          <div class="room-heading">
+            <div>
+              <div class="breadcrumb mono">HELIX RESEARCH <span>/</span> <span id="room-index">ZONE 01</span></div>
+              <h2 id="room-title">Access Control</h2>
+            </div>
+            <div class="room-state"><span class="live-dot"></span><span id="room-status">LOCKDOWN ACTIVE</span></div>
+          </div>
+
+          <section id="room-scene" class="room-scene room-one" aria-label="Interactive room environment">
+            <div class="scene-vignette"></div>
+            <div class="scene-grain"></div>
+            <div class="scene-lights" aria-hidden="true"><i></i><i></i><i></i></div>
+            <div class="scene-backwall" aria-hidden="true">
+              <div class="wall-seam seam-one"></div><div class="wall-seam seam-two"></div>
+              <div class="ceiling-light"></div><div class="wall-warning">RESTRICTED<br><b>ZONE</b></div>
+              <div class="scene-window"><div class="window-grid"></div><div class="window-status"><i></i>SECURE AIRLOCK</div></div>
+              <div class="wall-display"><span>HELIX // ACCESS NODE</span><div class="display-lines"><i></i><i></i><i></i><i></i></div></div>
+            </div>
+            <div class="scene-floor" aria-hidden="true"><div class="floor-lines"></div></div>
+            <div class="scene-door" aria-hidden="true">
+              <div class="door-frame"><div class="door-slab"><div class="door-window"></div><div class="door-stripe"></div><div class="door-handle"></div></div></div>
+              <span class="door-caption mono" id="door-caption">AIRLOCK 01 <i>SEALED</i></span>
+            </div>
+            <div class="scene-desk" aria-hidden="true">
+              <div class="desk-monitor"><div class="monitor-screen"><span class="screen-top">HELIX TERMINAL <i>● ● ●</i></span><div class="monitor-code"><i>AUTH SERVICE: OFFLINE</i><i>ATTEMPT 03 / 05</i><b>_</b></div></div><div class="monitor-stand"></div></div>
+              <div class="desk-top"></div><div class="desk-leg leg-left"></div><div class="desk-leg leg-right"></div>
+              <div class="desk-object object-paper"></div><div class="desk-object object-reader"><span></span></div>
+            </div>
+            <div class="scene-server" aria-hidden="true"><div class="server-light"></div><div class="server-label">HX / 01</div><div class="server-slots"><i></i><i></i><i></i><i></i></div></div>
+            <button class="hotspot hotspot-terminal" data-object="terminal" aria-label="Inspect terminal"><span class="hotspot-ring">⌕</span><span class="hotspot-label">ACCESS TERMINAL</span></button>
+            <button class="hotspot hotspot-note" data-object="note" aria-label="Inspect research note"><span class="hotspot-ring">⌕</span><span class="hotspot-label">FIELD NOTE</span></button>
+            <button class="hotspot hotspot-panel" data-object="panel" aria-label="Inspect security panel"><span class="hotspot-ring">⌕</span><span class="hotspot-label">SECURITY PANEL</span></button>
+            <button class="hotspot hotspot-door" data-object="door" aria-label="Inspect airlock door"><span class="hotspot-ring">⌕</span><span class="hotspot-label">SEALED AIRLOCK</span></button>
+            <button class="hotspot hotspot-badge" data-object="badge" aria-label="Inspect access card"><span class="hotspot-ring">⌕</span><span class="hotspot-label">ACCESS CARD</span></button>
+            <div class="scene-location mono" id="scene-location">ENTRANCE // LEVEL 01</div>
+            <div class="scene-coordinate mono">37°46'49.3"N <span>122°25'09.7"W</span></div>
+          </section>
+
+          <div class="scene-footer">
+            <p><span class="interaction-pip"></span><span id="scene-prompt">Scan the room. Every detail is part of the system.</span></p>
+            <button id="hint-button" class="text-button" type="button"><span aria-hidden="true">◈</span> Request a hint <kbd>H</kbd></button>
+          </div>
+
+          <footer class="bottom-bar">
+            <div class="inventory-block"><span class="bottom-label">EVIDENCE</span><div id="inventory" class="inventory-items" aria-label="Collected evidence"></div></div>
+            <div class="progress-block"><span class="bottom-label">MISSION PROGRESS</span><div id="puzzle-progress" class="puzzle-progress"></div><span id="progress-count" class="progress-count">0 / 9</span></div>
+          </footer>
+        </div>
+      </section>
+
+      <div id="dialog-layer" class="dialog-layer" hidden></div>
+      <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    </main>
+  </body>
+</html>
